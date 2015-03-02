@@ -3,7 +3,7 @@ This is a Matlab implementation of Additive Gaussian Process Optimisation and
 Bandits. For more details please read our paper on Arxiv:
 
 ### Installation & Getting Started
-- Just run startup.m to add all relevant paths to your Matlab workspace
+- Just add all relevant paths to your Matlab workspace
 - The demos directory has an example on how to use this library.
 - This library is still under development and still contains some experimental
   code we used during development. We are working on a cleaner implementation.
