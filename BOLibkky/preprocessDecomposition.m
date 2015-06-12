@@ -1,8 +1,13 @@
-function [decomp, boAddParams, numGroups] = ...
-  getDecompForParams(numDims, numDimsPerGroup, boAddParams, addRemainingDims)
+function [decomp, params, numGroups] = ...
+  preprocessDecomposition(numDims, numDimsPerGroup, params, addRemainingDims)
+
+  % First set the Decomposition
+  if ~isfield(params, 'decompStrategy') | isempty(params.decompStrategy)
+    params.decompStrategy = 'partialLearn';
+  end
 
   if ~exist('addRemainingDims', 'var')
-    addRemainingDims = false;
+    addRemainingDims = true;
   end
 
   if addRemainingDims
@@ -16,15 +21,15 @@ function [decomp, boAddParams, numGroups] = ...
   end
 
   if numDimsPerGroup == numDims
-    % This is the full BO
-    boAddParams.decompStrategy = 'known';
+    % This is full (naive) BO
+    params.decompStrategy = 'known';
     decomp = cell(1,1);
     decomp{1} = 1:numDims;
-    boAddParams.noises = 0 * ones(numGroups, 1);
+    params.noises = 0 * ones(numGroups, 1);
 
-  elseif strcmp(boAddParams.decompStrategy, 'known')
+  elseif strcmp(params.decompStrategy, 'known')
     decomp = cell(numGroups, 1);
-    boAddParams.noises = 0 * ones(numGroups, 1);
+    params.noises = 0 * ones(numGroups, 1);
     for i = 1:numGroups
       decomp{i} = ( (i-1)*numDimsPerGroup+1 : min(i*numDimsPerGroup, numDims) );
     end
