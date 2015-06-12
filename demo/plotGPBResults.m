@@ -58,7 +58,7 @@ for regIter = 1:2
     % Std
     KDRegStdErr = std(boKDCumRegrets, 1)/sqrt(numExperiments);
     AddRegStdErr = std(boAddCumRegrets, 1)/sqrt(numExperiments);
-    eiRegStdErr = std(boEIAddRegrets, 1)/sqrt(numExperiments);
+    eiRegStdErr = std(boEICumRegrets, 1)/sqrt(numExperiments);
     randRegStdErr = std(randCumRegrets, 1)/sqrt(numExperiments);
     % For diRect
     diRectReg = diRectCumRegret;

@@ -12,14 +12,13 @@ warning off;
 
 % Problem parameters
 numExperiments = 2; % Running 2 experiments to generate the error bars.
-numDims = 10; trueNumDimsPerGroup = 4; numDimsPerGroupCands = [10 5]';
-% numDims = 24; trueNumDimsPerGroup = 12; numDimsPerGroupCands = [24 1 3 6 12]'; 
+numDims = 24; trueNumDimsPerGroup = 12; numDimsPerGroupCands = [24 1 3 6 12]'; 
 % numDims = 40; trueNumDimsPerGroup = 18; numDimsPerGroupCands = [40 1 5 10 20]';
 % We will run multiple instantiations of add-gp-ucb with maximum group size given in
 % numDimsPerGroupCands. In the first case (d = numDims) it is plain gp-ucb.
 
 % Experiment parameters
-numIters = 100;
+numIters = 400;
 numDiRectEvals = min(5000, 100*numDims);
 
 numdCands = numel(numDimsPerGroupCands);
@@ -90,7 +89,7 @@ randSimpleRegrets = zeros(numExperiments, totalNumQueries);
 % For storing cumulative regret values
 boKDCumRegrets = zeros(numExperiments, totalNumQueries);
 boAddCumRegrets = zeros(numExperiments, totalNumQueries, numdCands);
-boEICumRegrets = zeros(numExperiments, totalNumQueries, numdCands);
+boEICumRegrets = zeros(numExperiments, totalNumQueries);
 randCumRegrets = zeros(numExperiments, totalNumQueries);
 
 % First Call Direct
