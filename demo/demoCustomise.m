@@ -12,7 +12,7 @@ warning off;
 
 % Problem parameters
 numExperiments = 2; % Running 2 experiments to generate the error bars.
-numDims = 10; trueNumDimsPerGroup = 4; numDimsPerGroupCands = [10 1 2 5]';
+numDims = 10; trueNumDimsPerGroup = 4; numDimsPerGroupCands = [10 5]';
 % numDims = 24; trueNumDimsPerGroup = 12; numDimsPerGroupCands = [24 1 3 6 12]'; 
 % numDims = 40; trueNumDimsPerGroup = 18; numDimsPerGroupCands = [40 1 5 10 20]';
 % We will run multiple instantiations of add-gp-ucb with maximum group size given in
@@ -142,9 +142,9 @@ for expIter = 1:numExperiments
   [~, ~, ~, valHistEI] = ...
     addGPBO(func, boEIDecomp, bounds, numIters, boEIParams);
   [sR, cR] = getRegrets(trueMaxVal, valHistEI);
-  boEIHistories(expIter, :, candIter) = valHistEI;
-  boEISimpleRegrets(expIter, :, candIter) = sR';
-  boEICumRegrets(expIter, :, candIter) = cR';
+  boEIHistories(expIter, :) = valHistEI;
+  boEISimpleRegrets(expIter, :) = sR';
+  boEICumRegrets(expIter, :) = cR';
 
   % Random
   randQueries = bsxfun(@plus, ...
