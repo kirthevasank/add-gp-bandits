@@ -1,4 +1,4 @@
-## Add-GP-UCB
+## Add-GP-Bandits
 This is a Matlab implementation of Additive Gaussian Process Optimisation and 
 Bandits. For more details please read our paper (below).
 
