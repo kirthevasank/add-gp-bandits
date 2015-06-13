@@ -6,6 +6,7 @@ addpath ../addGPLibkky/
 addpath ../BOLibkky/
 addpath ../utils/
 warning off;
+rng('default');
 
 % Problem Set up
 % --------------
