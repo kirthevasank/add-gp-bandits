@@ -15,8 +15,8 @@ If you use this library in your academic work please cite our ICML paper:
 "High Dimensional Bayesian Optimisation and Bandits using Additive Models",
 Kirthevasan Kandasamy, Jeff Schneider, Barnabas Poczos. International Conference on
 Machine Learning, 2015.
-
-url: http://www.cs.cmu.edu/~kkandasa/pubs/kandasamyICML15addGPUCB.pdf .
+The paper is available at:
+http://www.cs.cmu.edu/~kkandasa/pubs/kandasamyICML15addGPUCB.pdf.
 
 We use DiRect to optimise the acquisition function. The implementation was taken from
 Dan Finkel (2004).
