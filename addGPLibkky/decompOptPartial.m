@@ -1,6 +1,6 @@
 function A = decompOptPartial(func, D, d, M)
 
-  numTrials = 5*D;
+  numTrials = 5;
   currBestVal = inf;
 
   for i = 1:numTrials

@@ -36,7 +36,7 @@ function params = boProcessParams(params, oracle, bounds, numGroups)
   end
 
   % Set up sub-structure for DiRect
-  diRectParams.maxevals = ceil(params.numDiRectEvals/numGroups);
+%   diRectParams.maxevals = ceil(params.numDiRectEvals/numGroups);
   diRectParams.maxits = inf;
   params.diRectParams = diRectParams;
 

@@ -292,7 +292,7 @@ calltype = DetermineFcnType(Problem,impcons);
 %-- at the center of the unit hyper-rectangle.
 %om_point   = abs(b - a).*l_c(:,1)+ a;
 %l_fc(1)    = feval(f,om_point,varargin{:});
-[l_fc(1),l_con(1), l_feas_flags(1)] = ...
+[l_fc(1),l_con(1), l_feas_flags(1), point] = ...
     CallObjFcn(Problem,l_c(:,1),a,b,impcons,calltype,varargin{:});
   if ~isfinite(maxEvals)
     queryStoreSize = 10001;
@@ -301,7 +301,7 @@ calltype = DetermineFcnType(Problem,impcons);
   end
   queries = zeros(queryStoreSize, n);
   queryVals = zeros(queryStoreSize, 1);
-  queries(1,:) = l_c(:,1)';
+  queries(1,:) = point';
   queryVals(1) = l_fc(1);
   numQueries = 1;
 fcncounter = 1;
@@ -477,11 +477,13 @@ for i = 1:lssize
       lsi               = ls(i);
       newc_left(lsi,i)  = newc_left(lsi,i) - delta;
       newc_right(lsi,i) = newc_right(lsi,i) + delta;
-      [f_left(i), con_left(i), fflag_left(i)]    = CallObjFcn(Problem,newc_left(:,i),a,b,impcons,calltype,varargin{:});
-      [f_right(i), con_right(i), fflag_right(i)] = CallObjFcn(Problem,newc_right(:,i),a,b,impcons,calltype,varargin{:});
+      [f_left(i), con_left(i), fflag_left(i), pointLeft]    = ...
+        CallObjFcn(Problem,newc_left(:,i),a,b,impcons,calltype,varargin{:});
+      [f_right(i), con_right(i), fflag_right(i), pointRight] = ...
+        CallObjFcn(Problem,newc_right(:,i),a,b,impcons,calltype,varargin{:});
     if fcncounter < queryStoreSize 
-      queries(fcncounter+1, :) = newc_left(i);
-      queries(fcncounter+2, :) = newc_right(i);
+      queries(fcncounter+1, :) = pointLeft';
+      queries(fcncounter+2, :) = pointRight';
       queryVals(fcncounter+1) = f_left(i);
       queryVals(fcncounter+2) = f_right(i);
     end
@@ -572,7 +574,7 @@ return
 % Created on :  06/07/2004                                         %
 % Purpose    :  Evaluate ObjFcn at pointed specified               %
 %------------------------------------------------------------------%
-function [fcn_value, con_value, feas_flag] = ...
+function [fcn_value, con_value, feas_flag, point] = ...
     CallObjFcn(Problem,x,a,b,impcon,calltype,varargin)
 
 con_value = 0;

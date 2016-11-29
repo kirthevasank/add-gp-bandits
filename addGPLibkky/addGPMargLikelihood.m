@@ -198,7 +198,6 @@ function [mu, KPost, Mus, KPosts, combinedFuncH, funcHs, ...
 
     % 4.4 If using different scales and bws
     else
-      fprintf('Samy !');
       nlmlF = @(t) normMargLikelihood( exp(t(1:numGroups)), exp(t(numGroups+1:end)), ...
         decomposition, X, y, meanFuncs, commonMeanFunc, noises, commonNoise);
       diRectBounds = log([sigmaSmBounds; sigmaPrBounds]);

@@ -207,16 +207,14 @@ function [maxVal, maxPt, boQueries, boVals, history] = addGPBO(...
           groupBWs{d} = bws;
           groupScales{d} = scales;
           groupDecomps{d} = currDecomp;
-          groupMargLikeVals(d) = margLikeVal; % / size(currBoVals, 1);
+          groupMargLikeVals(d) = margLikeVal;
 
         end
-        groupSampleProbs = exp(groupMargLikeVals - max(groupMargLikeVals));
-        groupSampleProbs = 0.80 * groupSampleProbs/sum(groupSampleProbs) + ...
-                           0.20 * ones(decomp.dMax,1)/decomp.dMax;
-        fprintf('Sampling Probs: %s, Counts: %s\n', ...
-                mat2str(round(groupSampleProbs', 2)), ...
-                mat2str(groupSampleCounts') ...
-               );
+        groupSampleProbs = exp(groupMargLikeVals);
+        groupSampleProbs = 0.8*groupSampleProbs/sum(groupSampleProbs) + ...
+                           0.2 * ones(decomp.dMax,1)/decomp.dMax;
+        fprintf('Sampling Probs: %s, Counts: %s\n', mat2str(round(groupSampleProbs, 2)), ...
+                mat2str(round(groupSampleCounts)));
 
       end % end if strcmp(params.decompStrategy, DECOMP_STOCH1)
       
@@ -246,9 +244,11 @@ function [maxVal, maxPt, boQueries, boVals, history] = addGPBO(...
       currBoVals, dummyPts, currIterDecomp, currGPParams);
 
     % Now obtain the next point
+    tic,
     params.diRectParams.maxevals = ceil(params.numDiRectEvals/numel(currIterDecomp));
     [nextPt, ~, nextPtStd] = getNextQueryPt(params, combFuncH, funcHs, ...
       currIterDecomp, currBoVals, bounds);
+    toc,
     % If it is too close, perturb it a bit
     if min( sqrt( sum( bsxfun(@minus, currBoQueries, nextPt).^2, 2) ))/...
           alCurrBW< 1e-10 

@@ -20,7 +20,11 @@ function [decomp, params, numGroups] = ...
     numGroups = floor(numDims/numDimsPerGroup);
   end
 
-  if numDimsPerGroup == numDims
+  % Determine the decomposition accordingly.
+  if strcmp(params.decompStrategy, 'stoch1')
+    decomp.dMax = numDimsPerGroup;
+
+  elseif numDimsPerGroup == numDims
     % This is full (naive) BO
     params.decompStrategy = 'known';
     decomp = cell(1,1);
